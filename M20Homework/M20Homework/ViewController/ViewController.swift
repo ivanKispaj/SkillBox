@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     private lazy var fetchResultController: NSFetchedResultsController<Executors> =
     {
         let fetchRequest = Executors.fetchRequest()
-        let sortDescriptor = NSSortDescriptor(key: "firstName", ascending: sortedType)
+        let sortDescriptor = NSSortDescriptor(key: "lastName", ascending: sortedType)
         fetchRequest.sortDescriptors = [sortDescriptor]
         let fetchedResultController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: persistenContainer.viewContext, sectionNameKeyPath: nil, cacheName: nil)
         return fetchedResultController
@@ -124,7 +124,7 @@ class ViewController: UIViewController {
     {
         sortedType.toggle()
         UserDefaults.standard.set(sortedType, forKey: KeyUserDefaults.sortedType)
-        let sortDescriptor = NSSortDescriptor(key: "firstName", ascending: sortedType)
+        let sortDescriptor = NSSortDescriptor(key: "lastName", ascending: sortedType)
         fetchResultController.fetchRequest.sortDescriptors = [sortDescriptor]
         try? fetchResultController.managedObjectContext.save()
         getTableData()
