@@ -95,11 +95,6 @@ class ViewController: UIViewController {
                 if (fish.layer.presentation()?.frame.contains(tapLocation))! {
                     print("fish tapped!")
                     сaught.append(fish.tag)
-                } else
-                {
-                    setRandomXY()
-                    fish.movedRandom(x: randomX, y: randomY)
-                    
                 }
             }
             
@@ -186,7 +181,7 @@ class ViewController: UIViewController {
     
     private func getAlertEndGame(text: String, message: String)
     {
-
+        
         let alert = UIAlertController(title: text, message: message, preferredStyle: .alert)
         let action = UIAlertAction(title: "Yes", style: .destructive) { _ in
             self.setUpGameScene()
@@ -202,9 +197,9 @@ class ViewController: UIViewController {
         timer?.schedule(deadline: .now(), repeating: 1.0)
         
         timer?.setEventHandler { [weak self] in
+            
             if let self = self
             {
-              
                 self.timeSecond -= 1
                 if self.timeSecond <= 0
                 {
@@ -219,10 +214,16 @@ class ViewController: UIViewController {
                     self.getAlertEndGame(text: "Game Over!", message: "Time is out. Do you want again?")
                 } else
                 {
+                    if !self.fishes.isEmpty
+                    {
+                        for fish in fishes {
+                            setRandomXY()
+                            fish.movedRandom(x: randomX, y: randomY)
+                        }
+                    }
                     self.timeGameLabel.text = String(timeSecond)
                 }
             }
-            
         }
     }
     
@@ -233,7 +234,8 @@ extension UIImageView
 {
     func movedRandom(x: Int, y: Int)
     {
-        UIView.animate(withDuration: 0.3) {
+        var randDuration: Double = Double.random(in: 0.2...1.0)
+        UIView.animate(withDuration: randDuration) {
             self.center = CGPoint(x: x, y: y)
         }
     }

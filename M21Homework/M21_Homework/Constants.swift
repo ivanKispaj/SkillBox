@@ -11,7 +11,7 @@ enum Constants
 {
     static var timeGame: Int
     {
-        return 10
+        return 20
     }
     
     static var countFishes: Int
